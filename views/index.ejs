@@ -52,7 +52,12 @@
                 <figcaption><%= file.filename %></figcaption>
               </figure><br>
             <% } else { %>
-              <%= file.filename %>
+              <form method="GET"  action="/files/<%= file.filename %>?_method=GET">
+                <button class="button is-link">
+                  <span class="icon is-offset-one-quarter"><i class="fas file-label"></i></span><span>"<%= file.filename%>"</span>
+                </button>
+              </form>
+              
             <% } %>
               <form method="POST" action="/files/<%= file._id %>?_method=DELETE">
                 <button class="button is-danger">

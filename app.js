@@ -11,7 +11,7 @@ const methodOverride = require('method-override');
 // Initialize environment
 const app = express();
 const port = process.env.PORT || 3000;
-const mongoURI = 'mongodb://localhost:27017/multer'
+const mongoURI = 'mongodb+srv://test:test123@cluster0-tdord.mongodb.net/Elearning?retryWrites=true&w=majority'
 
 // Create Mongo connection
 const conn = mongoose.createConnection(mongoURI);
@@ -25,7 +25,7 @@ conn.once('open', () => {
 
 // Create storage engine
 const storage = new GridFsStorage({
-  url: monogoURI,
+  url: mongoURI,
   file: (req, file) => {
     return new Promise((resolve, reject) => {
       crypto.randomBytes(16, (err, buf) => {
@@ -79,6 +79,8 @@ app.get('/files', (req, res) => {
 app.get('/files/:filename', (req, res) => {
   gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
     if (!file || file.length === 0) return res.status(404).json({ err: 'No file exists' });
+    const readstream = gfs.createReadStream(file.filename);
+     console.log( readstream.pipe(res));
     return res.json(file);
   });
 });
