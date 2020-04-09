@@ -12,21 +12,12 @@
   <section class="hero is-dark is-bold is-fullheight">
 
     <!-- Navbar -->
-    <div class="hero-head">
-      <nav class="navbar">
-        <div class="container">
-          <div class="navbar-brand">
-            <a class="navbar-item" href="https://bulma.io" target="_blank"><img src="https://bulma.io/images/bulma-type-white.png" alt="Bulma Logo"></a>
-          </div>
-        </div>
-      </nav>
-    </div>
 
     <div class="hero-body">
       <div class="container has-text-centered">
         
         <!-- Upload Form -->
-        <h1 class="title">Mongo File Uploads</h1>
+        <h1 class="title"> Test Paper Uploads</h1>
         <form action="/upload" method="POST" enctype="multipart/form-data">
           <div class="file is-centered">
             <label class="file-label">
@@ -48,13 +39,20 @@
               <div class="column is-half is-offset-one-quarter">
             <% if(file.isImage) { %>
               <figure class="image">
-                <img src="image/<%= file.filename %>" alt="Placeholder image">
-                <figcaption><%= file.filename %></figcaption>
+                <img style="width: 150px;" src="image/<%= file.filename %>"  alt="Placeholder image">
+                <!-- <figcaption><%= file.filename %></figcaption> -->
               </figure><br>
+              <form method="GET"  action="/image/<%= file.filename %>?_method=GET">
+                <button class="button is-link">
+                  <span class="icon is-offset-one-quarter"><i class="fas file-icon"></i></span>
+                  <span>Download File <%= file.contentType %></span>
+                </button>
+              </form>
             <% } else { %>
               <form method="GET"  action="/files/<%= file.filename %>?_method=GET">
                 <button class="button is-link">
-                  <span class="icon is-offset-one-quarter"><i class="fas file-label"></i></span><span>"<%= file.filename%>"</span>
+                  <span class="icon is-offset-one-quarter"><i class="fas file-icon"></i></span>
+                  <span>Download File <%= file.contentType %></span>
                 </button>
               </form>
               
