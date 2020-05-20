@@ -10,7 +10,7 @@ const methodOverride = require('method-override');
 
 // Initialize environment
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 const mongoURI = 'mongodb+srv://test:test123@cluster0-tdord.mongodb.net/Elearning?retryWrites=true&w=majority'
 
 // Create Mongo connection
@@ -30,8 +30,9 @@ const storage = new GridFsStorage({
     return new Promise((resolve, reject) => {
       crypto.randomBytes(16, (err, buf) => {
         if (err) return reject(err);
-        const filename = buf.toString('hex') + path.extname(file.originalname);
-      const fileInfo = {
+       // const filename = buf.toString('hex') + path.extname(file.originalname);
+        const filename = file.originalname;
+        const fileInfo = {
         filename: filename,
         bucketName: 'uploads'
       };
